@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<title>{% block title %}Glenia Controle{% endblock %}</title>
+</head>
+<body>
+<div class="site">
+{% if usuario_atual %}
+<header class="topbar">
+<a class="brand" href="{{ url_for('inicio') }}"><span>♡</span> {{ usuario_atual.nome_loja }}</a>
+<nav>
+<a href="{{ url_for('inicio') }}">Início</a>
+<a href="{{ url_for('vendas') }}">Nova venda</a>
+<a href="{{ url_for('produtos') }}">Produtos</a>
+<a href="{{ url_for('compras') }}">Entradas</a>
+<a href="{{ url_for('historico') }}">Histórico</a>
+<a href="{{ url_for('sair') }}">Sair</a>
+</nav>
+</header>
+{% endif %}
+
+<main class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="alerts">
+{% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</main>
+
+{% if usuario_atual %}<footer>{{ usuario_atual.nome_loja }} · simples, delicado e feito para cuidar da loja ♡</footer>{% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Entrada de produtos - Glenia Controle{% endblock %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">♡ entrada</p><h1>Entrada de produtos</h1><p class="subtitulo">Registre compras para aumentar o estoque e contabilizar o gasto da loja.</p></div></div>
+
+<div class="two-col">
+<section class="panel">
+<h2>Registrar compra</h2>
+<form action="{{ url_for('registrar_compra') }}" method="POST" class="form">
+<label>Produto<select name="produto_id" required>
+<option value="">Selecione</option>
+{% for produto in produtos %}<option value="{{ produto.id }}">{{ produto.nome }} · estoque {{ produto.quantidade }}</option>{% endfor %}
+</select></label>
+<label>Quantidade comprada<input type="number" name="quantidade" min="1" required></label>
+<label>Custo por unidade<input type="number" name="custo_unitario" step="0.01" min="0" required></label>
+<button class="btn btn-primary" type="submit">Registrar entrada</button>
+</form>
+</section>
+
+<section class="panel">
+<div class="panel-head"><h2>Últimas compras</h2><a href="{{ url_for('historico_compras') }}">Ver todas</a></div>
+{% if compras %}
+<div class="lista">
+{% for compra in compras[:8] %}
+<div class="item"><div><div class="item-title">{{ compra.nome }}</div><small>{{ compra.quantidade }} un. · {{ compra.data|data_br }}</small></div><b>{{ compra.total|moeda }}</b></div>
+{% endfor %}
+</div>
+{% else %}<p class="empty">Nenhuma compra registrada.</p>{% endif %}
+</section>
+</div>
+{% endblock %}

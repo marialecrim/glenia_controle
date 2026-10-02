@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Histórico de compras - Glenia Controle{% endblock %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">♡ registros</p><h1>Histórico de compras</h1><p class="subtitulo">Acompanhe tudo que já entrou como gasto com produtos.</p></div></div>
+<section class="panel">
+{% if compras %}
+<div class="table-wrap"><table><thead><tr><th>Data</th><th>Produto</th><th>Qtd.</th><th>Custo un.</th><th>Total</th></tr></thead>
+<tbody>{% for compra in compras %}<tr><td>{{ compra.data|data_br }}</td><td>#{{ compra.produto_id }} · {{ compra.nome }}</td><td>{{ compra.quantidade }}</td><td>{{ compra.custo_unitario|moeda }}</td><td><b>{{ compra.total|moeda }}</b></td></tr>{% endfor %}</tbody></table></div>
+{% else %}<p class="empty">Nenhuma compra registrada ainda.</p>{% endif %}
+</section>
+{% endblock %}

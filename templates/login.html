@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Entrar - Glenia Controle{% endblock %}
+{% block content %}
+<div class="auth-page">
+<section class="auth-card">
+<p class="eyebrow">♡ Glenia Controle</p>
+<h1>Bem-vinda de volta!</h1>
+<p class="subtitulo">Entre para acessar o controle da sua loja.</p>
+<form method="POST" class="form">
+<label>E-mail<input type="email" name="email" required autocomplete="email"></label>
+<label>Senha<input type="password" name="senha" required autocomplete="current-password"></label>
+<button class="btn btn-primary" type="submit">Entrar</button>
+</form>
+<p class="auth-link">Ainda não tem uma conta? <a href="{{ url_for('cadastro') }}">Criar conta</a></p>
+</section>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Histórico - Glenia Controle{% endblock %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">♡ registros</p><h1>Histórico de vendas</h1><p class="subtitulo">Tudo que já foi vendido fica registrado aqui.</p></div></div>
+<section class="panel">
+{% if vendas %}
+<div class="table-wrap"><table><thead><tr><th>Data</th><th>Produto</th><th>Qtd.</th><th>Preço un.</th><th>Total</th><th>Pagamento</th></tr></thead>
+<tbody>
+{% for venda in vendas %}
+<tr><td>{{ venda.data|data_br }}</td><td>#{{ venda.produto_id }} · {{ venda.nome }}</td><td>{{ venda.quantidade }}</td><td>{{ venda.preco_unitario|moeda }}</td><td><b>{{ venda.total|moeda }}</b></td><td>{{ venda.forma_pagamento }}</td></tr>
+{% endfor %}
+</tbody></table></div>
+{% else %}<p class="empty">Nenhuma venda registrada ainda.</p>{% endif %}
+</section>
+{% endblock %}

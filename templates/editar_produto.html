@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Editar produto - Glenia Controle{% endblock %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">♡ produto #{{ produto.id }}</p><h1>Editar produto</h1></div></div>
+<section class="panel narrow">
+<form method="POST" class="form">
+<label>Nome<input type="text" name="nome" value="{{ produto.nome }}" required></label>
+<label>Categoria<input type="text" name="categoria" value="{{ produto.categoria or '' }}"></label>
+<label>Preço normal<input type="number" name="preco_normal" value="{{ produto.preco_normal }}" step="0.01" min="0" required></label>
+<div class="info-box">O estoque é alterado pela tela <b>Entrada de produtos</b>, para manter o histórico correto.</div>
+<button class="btn btn-primary">Salvar alterações</button>
+<a class="btn btn-light" href="{{ url_for('produtos') }}">Voltar</a>
+</form>
+</section>
+{% endblock %}

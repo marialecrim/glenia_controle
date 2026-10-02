@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Produtos - Glenia Controle{% endblock %}
+{% block content %}
+<div class="page-head">
+    <div><p class="eyebrow">♡ cadastro</p><h1>Produtos</h1><p class="subtitulo">Cadastre os produtos e acompanhe as quantidades.</p></div>
+</div>
+
+<div class="two-col">
+<section class="panel">
+    <h2>Cadastrar produto</h2>
+    <form action="{{ url_for('cadastrar_produto') }}" method="POST" class="form">
+        <label>Nome do produto<input type="text" name="nome" required></label>
+        <label>Categoria<input type="text" name="categoria"></label>
+        <label>Preço normal<input type="number" name="preco_normal" step="0.01" min="0" required></label>
+        <label>Quantidade inicial<input type="number" name="quantidade" min="0" value="0" required></label>
+        <label>Custo por unidade (opcional)<input type="number" name="custo_inicial" step="0.01" min="0" placeholder="Só se já estiver entrando com estoque"></label>
+        <button class="btn btn-primary" type="submit">Cadastrar produto</button>
+    </form>
+</section>
+
+<section class="panel">
+    <div class="panel-head"><h2>Produtos cadastrados</h2><span>{{ produtos|length }} produto(s)</span></div>
+    {% if produtos %}
+    <div class="lista">
+    {% for produto in produtos %}
+        <div class="item">
+            <div>
+                <div class="item-title">#{{ produto.id }} · {{ produto.nome }}</div>
+                <small>{{ produto.categoria or "Sem categoria" }} · Estoque: <b>{{ produto.quantidade }}</b> · Preço: <b>{{ produto.preco_normal|moeda }}</b></small>
+            </div>
+            <div class="item-actions">
+                <a class="btn btn-small btn-light" href="{{ url_for('editar_produto', id=produto.id) }}">Editar</a>
+                <form action="{{ url_for('excluir_produto', id=produto.id) }}" method="POST" onsubmit="return confirm('Excluir este produto?');">
+                    <button class="btn btn-small btn-danger" type="submit">Excluir</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}<p class="empty">Nenhum produto cadastrado ainda.</p>{% endif %}
+</section>
+</div>
+{% endblock %}

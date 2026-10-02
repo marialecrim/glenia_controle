@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Nova venda - Glenia Controle{% endblock %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">♡ saída</p><h1>Nova venda</h1><p class="subtitulo">Registre a venda e o estoque será atualizado automaticamente.</p></div></div>
+
+<section class="panel narrow">
+<h2>Registrar venda</h2>
+<form action="{{ url_for('registrar_venda') }}" method="POST" class="form">
+<label>Produto
+<select name="produto_id" id="produto" required onchange="atualizarPreco()">
+<option value="">Selecione um produto</option>
+{% for produto in produtos %}
+<option value="{{ produto.id }}" data-preco="{{ produto.preco_normal }}">{{ produto.nome }} · estoque {{ produto.quantidade }}</option>
+{% endfor %}
+</select></label>
+
+<label>Quantidade<input type="number" name="quantidade" min="1" required></label>
+<label>Preço normal<input type="number" id="preco_normal" name="preco_normal" step="0.01" min="0" readonly></label>
+<label>Preço promocional (opcional)<input type="number" name="preco_promocional" step="0.01" min="0" placeholder="Deixe vazio para usar o normal"></label>
+<label>Forma de pagamento
+<select name="forma_pagamento" required>
+<option value="">Selecione</option><option>Pix</option><option>Dinheiro</option><option>Cartão de débito</option><option>Cartão de crédito</option>
+</select></label>
+<button class="btn btn-primary" type="submit">Registrar venda ♡</button>
+</form>
+</section>
+
+<script>
+function atualizarPreco() {
+    const select = document.getElementById("produto");
+    const option = select.options[select.selectedIndex];
+    document.getElementById("preco_normal").value = option.dataset.preco || "";
+}
+</script>
+{% endblock %}

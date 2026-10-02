@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Início - {{ usuario_atual.nome_loja }}{% endblock %}
+{% block content %}
+<div class="hero">
+    <div>
+        <p class="eyebrow">♡ controle da loja</p>
+        <h1>Bem-vinda, {{ usuario_atual.nome_loja }}!</h1>
+        <p class="subtitulo">Um jeitinho simples de cuidar da sua loja 🌷</p>
+    </div>
+    <div class="hero-flower">✿</div>
+</div>
+
+<div class="acoes">
+    <a href="{{ url_for('vendas') }}" class="btn btn-primary">＋ Nova venda</a>
+    <a href="{{ url_for('produtos') }}" class="btn btn-light">＋ Cadastrar produto</a>
+    <a href="{{ url_for('compras') }}" class="btn btn-light">＋ Entrada de produtos</a>
+</div>
+
+<section class="cards">
+    <div class="card"><span class="card-icon">♡</span><span class="card-label">Produtos cadastrados</span><strong>{{ total_produtos }}</strong></div>
+    <div class="card"><span class="card-icon">🛍</span><span class="card-label">Vendas hoje</span><strong>{{ vendas_hoje }}</strong></div>
+    <div class="card"><span class="card-icon">📦</span><span class="card-label">Itens em estoque</span><strong>{{ estoque_total }}</strong></div>
+    <div class="card"><span class="card-icon">♡</span><span class="card-label">Vendas no mês</span><strong>{{ vendas_mes|moeda }}</strong></div>
+</section>
+
+<section class="financeiro">
+    <div class="section-title"><div><p class="eyebrow">visão geral</p><h2>Financeiro da loja</h2></div></div>
+    <div class="financeiro-grid">
+        <div><span>Gasto com produtos</span><strong>{{ total_gasto|moeda }}</strong><small>total acumulado de compras</small></div>
+        <div><span>Retorno das vendas</span><strong>{{ total_vendas|moeda }}</strong><small>total acumulado de vendas</small></div>
+        <div><span>Resultado até agora</span><strong class="{% if resultado < 0 %}negativo{% else %}positivo{% endif %}">{{ resultado|moeda }}</strong><small>vendas menos gastos</small></div>
+    </div>
+</section>
+{% endblock %}

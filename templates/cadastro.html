@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Criar conta - Glenia Controle{% endblock %}
+{% block content %}
+<div class="auth-page">
+<section class="auth-card">
+<p class="eyebrow">♡ Glenia Controle</p>
+<h1>Criar sua conta</h1>
+<p class="subtitulo">Cadastre sua loja para começar a organizar tudo em um só lugar.</p>
+<form method="POST" class="form">
+<label>Seu nome<input type="text" name="nome" required autocomplete="name"></label>
+<label>Nome da loja<input type="text" name="nome_loja" required placeholder="Ex.: Boutique da Glênia"></label>
+<label>E-mail<input type="email" name="email" required autocomplete="email"></label>
+<label>Senha<input type="password" name="senha" minlength="6" required autocomplete="new-password"></label>
+<label>Confirmar senha<input type="password" name="confirmar_senha" minlength="6" required autocomplete="new-password"></label>
+<button class="btn btn-primary" type="submit">Criar conta</button>
+</form>
+<p class="auth-link">Já tem uma conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+</section>
+</div>
+{% endblock %}
